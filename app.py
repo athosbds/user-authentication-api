@@ -8,6 +8,9 @@ bycrpt = Bcrypt()
 @app.route('/')
 def index():
     return render_template('index.html')
+@app.route('/cadastro', methods=['GET', 'POST'])
+def register():
+    # init logic register
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
