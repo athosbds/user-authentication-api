@@ -11,7 +11,7 @@ def create_table():
     database = sqlite3.connect('database.db')
     database_cursor = database.cursor()
     database_cursor.execute(
-        "CREATE TABLE users(name text not null, email text not null unique, password text)")
+        "CREATE TABLE IF NOT EXISTS users(name text not null, email text not null unique, password text)")
 
 
 def search_user(email):
@@ -21,4 +21,7 @@ def search_user(email):
         "SELECT password FROM users WHERE email=?", (email,))
     result = database_cursor.fetchone()
     database.close()
-    return result[0]
+    if result:
+        return result[0]
+    else:
+        None
