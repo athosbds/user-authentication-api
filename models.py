@@ -22,10 +22,10 @@ def search_user(email):
     database = sqlite3.connect('database.db')
     database_cursor = database.cursor()
     database_cursor.execute(
-        "SELECT password FROM users WHERE email=?", (email,))
+        "SELECT name, password FROM users WHERE email=?", (email,))
     result = database_cursor.fetchone()
     database.close()
     if result:
-        return result[0]
+        return result 
     else:
         None

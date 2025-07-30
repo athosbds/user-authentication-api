@@ -33,7 +33,7 @@ def login():
         password = request.form['senha']
         user = search_user(email)
         if user:
-            name, hasehd = user
+            name, hashed = user
             hashed = search_user(email)
             if hashed and bycrpt.check_password_hash(hashed, password):
                 session['email'] = email
