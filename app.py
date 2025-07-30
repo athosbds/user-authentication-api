@@ -1,25 +1,44 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 from flask_bcrypt import Bcrypt
-from models import create_database, create_table, search_user
+from models import create_database, create_table, search_user, connect_database, insert_user
 create_database()
 create_table()
 app = Flask(__name__)
 bycrpt = Bcrypt()
+app.secret_key = 'MySecretKey1234'
 @app.route('/')
 def index():
     return render_template('index.html')
-@app.route('/cadastro', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    # init logic register
+    error = None
+    if request.method == 'POST':
+        name = request.form['nome']
+        email = request.form['email']
+        password = request.form['senha']
+        if search_user(email):
+            error = 'Email Existente'
+        else:
+            pass_hash = bycrpt.generate_password_hash(password).decode('utf-8')
+            insert_user(name, email, pass_hash)
+            return redirect(url_for('login'))
+    return render_template('register.html', error=error)
+
+        
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['senha']
-        hashed = search_user(email)
-        if hashed and bycrpt.check_password_hash(hashed, password):
-            return 'Logado Com Sucesso'
+        user = search_user(email)
+        if user:
+            name, hasehd = user
+            hashed = search_user(email)
+            if hashed and bycrpt.check_password_hash(hashed, password):
+                session['email'] = email
+                session['name'] = name
+                return redirect('/dashboard')
         else:
             error = '❌ Login incorreto: e-mail ou senha inválidos'
     return render_template('login.html', error=error)
