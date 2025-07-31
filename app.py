@@ -41,5 +41,12 @@ def login():
         else:
             error = 'Login Incorreto: e-mail não encontrado.'
     return render_template('login.html', error=error)
+@app.route('/dashboard')
+def dashboard():
+    if 'name' in session:
+        name = session['name']
+        return render_template('dashboard.html', name=name)
+    else:
+        return redirect(url_for('login'))
 if __name__ == '__main__':
     app.run(debug=True)
