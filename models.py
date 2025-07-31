@@ -26,6 +26,6 @@ def search_user(email):
     result = database_cursor.fetchone()
     database.close()
     if result:
-        return result 
+        return result
     else:
         None

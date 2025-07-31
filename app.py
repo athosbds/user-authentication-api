@@ -23,8 +23,6 @@ def register():
             insert_user(name, email, pass_hash)
             return redirect(url_for('login'))
     return render_template('register.html', error=error)
-
-        
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
@@ -34,13 +32,14 @@ def login():
         user = search_user(email)
         if user:
             name, hashed = user
-            hashed = search_user(email)
             if hashed and bycrpt.check_password_hash(hashed, password):
                 session['email'] = email
                 session['name'] = name
                 return redirect('/dashboard')
+            else:
+                error = 'Login incorreto: e-mail ou senha inválidos.'
         else:
-            error = '❌ Login incorreto: e-mail ou senha inválidos'
+            error = 'Login Incorreto: e-mail não encontrado.'
     return render_template('login.html', error=error)
 if __name__ == '__main__':
     app.run(debug=True)
