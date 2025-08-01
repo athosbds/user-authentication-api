@@ -1,6 +1,9 @@
 # 🔐 Flask Auth System
 
-Sistema de autenticação completo com Flask, utilizando SQLite e Flask-Bcrypt para registro, login, dashboard protegido e logout de usuários.
+Sistema de autenticação completo com Flask, 
+utilizando SQLite 
+e Flask-Bcrypt para registro, login, 
+dashboard protegido e logout de usuários.
 
 ## 🚀 Funcionalidades
 
