@@ -17,6 +17,11 @@ dashboard protegido e logout de usuários.
 
 ---
 
+![Imagem Ilustrativa](assets/register_view.gif)
+![Imagem Ilustrativa](assets/logout.gif)
+
+---
+
 ## Conceitos Aplicados
 
 - `Flask`: Framework web minimalista
